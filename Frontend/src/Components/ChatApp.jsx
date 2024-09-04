@@ -1,5 +1,5 @@
 import "./chatapp.css";
-import chat from "../assets/chat.png";
+// import chat from "../assets/chat.png";
 import lion from "../assets/lion.jpg";
 
 const ChatApp = () => {
@@ -8,9 +8,17 @@ const ChatApp = () => {
     23, 24, 25, 26, 27, 28, 29, 30,
   ];
 
+  // const Chat = document.getElementById("chat");
+  // const openChat = document.getElementById("open-chat");
+  // const closeChat = document.getElementById("close-chat");
+
+  // Chat.addEventListener("click", () => {
+  //   closeChat.style.display = "none";
+  // });
+
   return (
     <div className="container">
-      <div className="column left-container">
+      <div className="left-container">
         <div className="header">
           <div className="navbar">
             <div className="logo">
@@ -32,20 +40,20 @@ const ChatApp = () => {
         <div className="chats">
           {chats.map((index) => {
             return (
-              <div className="chat" key={index}>
+              <div className="chat" id="chat" key={index}>
                 <div className="image">
                   <img src={lion} alt="Profile picture" />
                 </div>
                 <div className="details">
                   <div className="top-details">
                     <div>
-                      <h5>User Name</h5>
+                      <h5>Becky Dev</h5>
                     </div>
                     <div className="color">{index}:00</div>
                   </div>
                   <div className="bottom-details">
                     <div>
-                      <small>Last Message</small>
+                      <small>Hi my Name is Becky</small>
                     </div>
                     <div className="color">{index}</div>
                   </div>
@@ -55,7 +63,7 @@ const ChatApp = () => {
           })}
         </div>
       </div>
-      <div className="column right-container">
+      {/* <div id="column" className="right-container">
         <div className="close-chat">
           <div className="img">
             <img src={chat} alt="chat icon" />
@@ -67,6 +75,62 @@ const ChatApp = () => {
               messages instantly, and experience a seamless chat experience with
               minimal setup
             </p>
+          </div>
+        </div>
+      </div> */}
+      <div id="column" className="right-container">
+        <div className="open-chat">
+          <div className="navbar">
+            <div className="profile_info">
+              <div className="back">
+                <span className="material-symbols-outlined">arrow_back</span>
+              </div>
+              <div className="image">
+                <img src={lion} alt="Profile picture" />
+              </div>
+              <div className="profile_name">
+                <b>Becky Dev</b>
+              </div>
+            </div>
+            <div className="chat_icons">
+              <div className="call_links">
+                <div>
+                  <span className="material-symbols-outlined">Videocam</span>
+                </div>
+                <div>
+                  <span className="material-symbols-outlined">call</span>
+                </div>
+              </div>
+              <div className="search_chat">
+                <div>
+                  <span className="material-symbols-outlined">search</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="message_box">
+            <div className="sender_box">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi accusamus adipisci dolore error at labore nostrum
+                placeat quaerat voluptatum! Quos consequuntur veritatis eligendi
+                earum possimus, nisi odio sint enim iure.
+              </p>
+            </div>
+            <div className="receiver_box">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi accusamus adipisci dolore error at labore nostrum
+                placeat quaerat voluptatum! Quos consequuntur veritatis eligendi
+                earum possimus, nisi odio sint enim iure.
+              </p>
+            </div>
+          </div>
+          <div className="input_box">
+            <span className="material-symbols-outlined">emoji_emotions</span>
+            <span className="material-symbols-outlined">attach_file</span>
+            <input type="text" placeholder="Type a message" />
+            <span className="material-symbols-outlined">send</span>
           </div>
         </div>
       </div>

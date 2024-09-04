@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Chat App Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnnyPoks/Chat-App.git"
+  },
+  "author": "Pokam John",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnnyPoks/Chat-App/issues"
+  },
+  "homepage": "https://github.com/JohnnyPoks/Chat-App#readme",
+  "dependencies": {
+    "@sequelize/mysql": "^7.0.0-alpha.41",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "sequelize": "^6.37.3",
+    "websocket": "^1.0.35",
+    "ws": "^8.18.0"
+  }
+}

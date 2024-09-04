@@ -19,7 +19,7 @@
   padding-bottom: 30px;
   display: flex;
   flex-direction: column;
-  z-index: 10px;
+  z-index: 20px;
 }
 
 .left-container > .header > .navbar {
@@ -38,15 +38,6 @@
 
 .navlinks > div {
   margin-left: 10px;
-}
-
-.navlinks > div > span {
-  padding: 10px;
-}
-
-.navlinks > div > span:hover {
-  border-radius: 7px;
-  background-color: #ffffff21;
 }
 
 .left-container > .header > .search > input {
@@ -94,12 +85,6 @@
   flex-basis: 10%;
 }
 
-.left-container > .chats > .chat > .image > img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-
 .left-container > .chats > .chat > .details {
   display: flex;
   flex-direction: column;
@@ -141,7 +126,7 @@
   font-weight: bolder;
 }
 
-/* styling the right panel */
+/* styling the right panel open chat */
 .right-container {
   flex-basis: 75%;
   display: flex;
@@ -174,4 +159,67 @@
   padding-top: 15px;
   width: 50%;
   color: #ffffff9c;
+}
+
+/* styling the right panel close chat */
+.open-chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.open-chat > .navbar {
+  width: 75%;
+  padding: 15px;
+  border-bottom: black solid 1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  z-index: 10px;
+}
+
+.open-chat > .navbar > .profile_info,
+.open-chat > .navbar > .chat_icons,
+.chat_icons > .call_links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile_info > .back {
+  margin-right: 10px;
+}
+
+.profile_info > .profile_name {
+  margin-left: 20px;
+}
+
+.open-chat > .input_box {
+  width: 75%;
+  max-height: 10%;
+  margin-top: 25px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  z-index: 10px;
+  border-top: black solid 1px;
+}
+
+.input_box > input {
+  width: 85%;
+  height: 45px;
+  border-radius: 7px;
+  border: none;
+  padding: 0 15px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  overflow: scroll;
 }

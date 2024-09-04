@@ -26,6 +26,30 @@ body {
   color: var(--text-color);
 }
 
+div > span {
+  padding: 10px;
+  cursor: pointer;
+}
+
+div > span:hover {
+  border-radius: 7px;
+  background-color: #ffffff21;
+}
+
+img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.open {
+  display: none;
+}
+
+.close {
+  display: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 2px;
