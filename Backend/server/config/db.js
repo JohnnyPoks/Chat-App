@@ -4,6 +4,7 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize("chat app database", "root", "", {
   host: "localhost",
   dialect: "mysql",
+  logging: false,
 });
 
 sequelize

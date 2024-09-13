@@ -1,0 +1,92 @@
+.new-chat-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0);
+  z-index: 1000;
+}
+
+.new-chat-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+input {
+  width: 300px;
+  height: 50px;
+}
+
+.floating-label {
+  position: relative;
+}
+
+.floating-label input[type="text"] {
+  border: none;
+  border-bottom: 2px solid var(--text-color);
+  color: var(--text-color);
+  background: transparent;
+}
+
+.floating-label input[type="text"]:hover {
+  border-bottom: 2px solid var(--sender-1-color);
+  margin-bottom: 0;
+}
+
+.floating-label input[type="text"]:focus,
+.floating-label input[type="text"]:active {
+  outline: none;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--not-color);
+}
+
+.floating-label input[type="text"] + label {
+  position: absolute;
+  pointer-events: none;
+  bottom: 0.5em;
+  left: 0.1em;
+  color: var(--text-color);
+  font-size: 1em;
+  transition: margin 0.2s ease, color 0.2s ease, font-size 0.2s ease;
+}
+
+.floating-label input[type="text"]:focus + label,
+.floating-label input[type="text"]:active + label,
+.floating-label input[type="text"]:valid + label {
+  pointer-events: auto;
+  margin-bottom: 2.95em;
+  font-size: 0.7em;
+}
+
+.floating-label input[type="text"]:focus + label,
+.floating-label input[type="text"]:active + label {
+  color: var(--not-color);
+}
+
+.new-chat-form button {
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text-color);
+  background-color: var(--sender-1-color);
+  transition: 0.3s;
+}
+
+.new-chat-form button:hover {
+  color: var(--text-color);
+  background-color: var(--not-color);
+}
+
+.new-chat-form button:last-child {
+  color: var(--text-color);
+  background-color: #ff000056;
+  transition: 0.3s;
+}
+
+.new-chat-form button:last-child:hover {
+  color: var(--text-color);
+  background-color: red;
+}

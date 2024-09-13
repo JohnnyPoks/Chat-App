@@ -1,0 +1,81 @@
+.left-container > .chats {
+  overflow: scroll;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+
+.left-container > .chats > .chat {
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-container > .chats > .chat:hover {
+  background-color: #ffffff21;
+  border-radius: 7px;
+}
+
+.left-container > .chats > .chat > .image {
+  flex-basis: 10%;
+}
+
+.left-container > .chats > .chat > .details {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 90%;
+  padding: 0px 10px;
+}
+
+.left-container > .chats > .chat > .details > .top-details {
+  font-size: large;
+  padding-bottom: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.top-details > .color {
+  font-size: small;
+  color: var(--not-color);
+}
+
+.left-container > .chats > .chat > .details > .bottom-details {
+  color: #ffffffb9;
+  padding-top: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chat .details .bottom-details small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 250px;
+  margin-right: 15px;
+}
+
+.bottom-details > .color {
+  color: var(--bg-color);
+  background-color: var(--not-color);
+  border-radius: 40% 0%;
+  padding: 1%;
+  text-align: center;
+
+  &.read {
+    display: none;
+  }
+}
+
+.color {
+  font-size: smaller;
+  font-weight: bolder;
+
+  &.read {
+    color: #ffffff9a;
+    font-weight: 100;
+  }
+}

@@ -1,0 +1,41 @@
+.open-chat > .input_box {
+  width: 100%;
+  max-height: 200px;
+  padding: 0px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10px;
+  border-top: black solid 1px;
+}
+
+.input_box > textarea {
+  width: 85%;
+  border-radius: 7px;
+  padding: 0px 10px;
+  padding-top: 20px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  overflow: scroll;
+  flex-grow: 1;
+  margin: 0px 10px;
+  resize: none;
+  line-height: 1.5;
+  max-height: 150px;
+}
+
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.emoji {
+  position: relative;
+
+  .emojiPicker {
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    background: var(--bg-color);
+  }
+}

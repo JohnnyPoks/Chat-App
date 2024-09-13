@@ -42,14 +42,6 @@ img {
   height: 50px;
 }
 
-.open {
-  display: none;
-}
-
-.close {
-  display: none;
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 2px;

@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+/* styling the right panel close chat */
+.right-container {
+  height: 100vh;
+  flex-basis: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > .right-container > .close-chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-chat > .img > img {
+  width: 300px;
+  height: 300px;
+}
+
+.close-chat > .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container > .right-container > .close-chat > .text > p {
+  line-height: 1.5rem;
+  padding-top: 15px;
+  width: 50%;
+  color: #ffffff9c;
+}
