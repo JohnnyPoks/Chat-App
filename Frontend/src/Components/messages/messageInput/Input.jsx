@@ -29,7 +29,7 @@ const MessageInput = ({ chat, onSendMessage }) => {
       const message = {
         time: time,
         message: text,
-        source: "receiver",
+        source: "sender",
       };
       onSendMessage(message);
       setText("");

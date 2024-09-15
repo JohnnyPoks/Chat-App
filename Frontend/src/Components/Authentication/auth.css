@@ -1,0 +1,93 @@
+.login-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0);
+  transition-duration: 5s;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+h2 > span {
+  color: var(--not-color);
+}
+
+input {
+  width: 300px;
+  height: 50px;
+}
+
+.floating-label {
+  position: relative;
+}
+
+.floating-label input[type="text"] {
+  border: none;
+  border-bottom: 2px solid var(--text-color);
+  color: var(--text-color);
+  background: transparent;
+}
+
+.floating-label input[type="text"]:hover {
+  border-bottom: 2px solid var(--sender-1-color);
+  margin-bottom: 0;
+}
+
+.floating-label input[type="text"]:focus,
+.floating-label input[type="text"]:active {
+  outline: none;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--not-color);
+}
+
+.floating-label input[type="text"] + label {
+  position: absolute;
+  pointer-events: none;
+  bottom: 0.5em;
+  left: 0.1em;
+  color: var(--text-color);
+  font-size: 1em;
+  transition: margin 0.2s ease, color 0.2s ease, font-size 0.2s ease;
+}
+
+.floating-label input[type="text"]:focus + label,
+.floating-label input[type="text"]:active + label,
+.floating-label input[type="text"]:valid + label {
+  pointer-events: auto;
+  margin-bottom: 2.95em;
+  font-size: 0.7em;
+}
+
+.floating-label input[type="text"]:focus + label,
+.floating-label input[type="text"]:active + label {
+  color: var(--not-color);
+}
+
+.login-container button {
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text-color);
+  background-color: var(--sender-1-color);
+  transition: 0.3s;
+}
+
+.login-container button:hover {
+  background-color: var(--not-color);
+}
+
+.login-container button:last-child {
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.login-container button:last-child span {
+  color: var(--not-color);
+}

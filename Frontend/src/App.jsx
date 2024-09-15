@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./App.css";
+// import Client from "./client/client";
+import SignUpPage from "./Components/Authentication/SignUp";
+import LoginPage from "./Components/Authentication/Login";
 import ChatListNavbar from "./Components/chats/ChatListNavbar";
 import Nochat from "./Components/NoChat";
 import Message from "./Components/messages/Messages";
 
 function App() {
+  // const test = new Client();
+
+  const [showSignupForm, setShowSignupForm] = useState(true);
+  const [showLoginForm, setShowLoginForm] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
 
   const handleChatClick = (chat) => {
@@ -15,14 +22,14 @@ function App() {
     setSelectedChat(null);
   };
 
-  // useEffect(() => {
-  //   setSelectedChat(chat)
-  
-  //   return () => {
-  //     setSelectedChat(null)
-  //   }
-  // }, [])
-  
+  const handleLogin = () => {
+    setShowLoginForm(false);
+  };
+
+  const handleCreateAccount = () => {
+    setShowLoginForm(false);
+    setShowSignupForm(false);
+  };
 
   // useEffect(() => {
   //   // Create WebSocket connection.
@@ -30,7 +37,7 @@ function App() {
 
   //   // Connection opened
   //   socket.addEventListener("open", (event) => {
-  //     socket.send(JSON.stringify({ myMessage: "Hello Server!" }));
+  //     socket.send(JSON.stringify({ createUser: "Hello Server!" }));
   //     console.log(event);
   //   });
 
@@ -42,15 +49,35 @@ function App() {
 
   return (
     <div className="container">
-      <ChatListNavbar onChatClick={handleChatClick} />
+      {showSignupForm ? (
+        <SignUpPage
+          onSignUp={handleCreateAccount}
+          onClose={() => {
+            setShowLoginForm(true);
+            setShowSignupForm(false);
+          }}
+        />
+      ) : showLoginForm ? (
+        <LoginPage
+          onLogin={handleLogin}
+          onClose={() => {
+            localStorage.clear();
+            setShowSignupForm(true);
+          }}
+        />
+      ) : (
+        <>
+          <ChatListNavbar onChatClick={handleChatClick} />
 
-      <div id="column" className="right-container">
-        {selectedChat ? (
-          <Message chat={selectedChat} onBackClick={handleBackClick} />
-        ) : (
-          <Nochat />
-        )}
-      </div>
+          <div id="column" className="right-container">
+            {selectedChat ? (
+              <Message chat={selectedChat} onBackClick={handleBackClick} />
+            ) : (
+              <Nochat />
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
