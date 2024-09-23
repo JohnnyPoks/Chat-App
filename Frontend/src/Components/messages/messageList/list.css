@@ -34,24 +34,52 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
 
-  p {
-    margin-right: 35px;
-    margin-bottom: 5px;
+  span {
+    color: #ffffffb0;
+    font-size: 0.7rem;
+    padding: 0px;
   }
 
-  p > span {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 5px 10px;
-    font-size: smaller;
-    color: #ffffffb0;
+  span:hover {
+    background-color: transparent;
+    cursor: text;
   }
 
   &.sender_box {
     background-color: var(--sender-1-color);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    div.timeStamp {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    div > span:last-child {
+      color: #4fb6ec;
+      padding: 0px 5px;
+    }
   }
+
   &.receiver_box {
     background-color: var(--receiver-1-color);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    div.timeStamp {
+      align-items: flex-end;
+
+      span {
+        padding: 0px;
+      }
+    }
   }
 }

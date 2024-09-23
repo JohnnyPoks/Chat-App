@@ -16,7 +16,7 @@ const Chat = sequelize.define(
   }
 );
 
-Chat.belongsTo(User, { as: "user1", foreignKey: "user1_id" });
-Chat.belongsTo(User, { as: "user2", foreignKey: "user2_id" });
+Chat.belongsTo(User, { as: "user1", foreignKey: "sender_id" });
+Chat.belongsTo(User, { as: "user2", foreignKey: "receiver_id" });
 
 module.exports = Chat;

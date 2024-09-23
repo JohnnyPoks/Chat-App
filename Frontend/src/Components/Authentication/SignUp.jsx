@@ -3,20 +3,26 @@ import Client from "../../client/client";
 import { useState } from "react";
 
 const SignUpPage = ({ onSignUp, onClose }) => {
-  const User = new Client();
+  const createUser = new Client();
 
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSignUp();
-    const newUser = User.createAccount(name, number);
-    console.log(newUser);
-    // localStorage.setItem("userId", newUser._id);
-    // localStorage.setItem("name", name);
-    // localStorage.setItem("number", number);
-    console.log(localStorage);
+    try {
+      const User = await createUser.createAccount(name, number);
+      const { id, username, phoneNumber } = User.newUser;
+      localStorage.clear();
+      localStorage.setItem("userId", id);
+      localStorage.setItem("name", username);
+      localStorage.setItem("number", phoneNumber);
+      console.log(localStorage);
+      onSignUp();
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -47,6 +53,11 @@ const SignUpPage = ({ onSignUp, onClose }) => {
             Number
           </label>
         </div>
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
         <button type="submit">Create Account</button>
         <button type="button" onClick={onClose}>
           Already have an Account? <span>Login</span>

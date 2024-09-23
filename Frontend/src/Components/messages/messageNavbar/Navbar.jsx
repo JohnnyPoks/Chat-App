@@ -12,9 +12,9 @@ const MessageNavbar = ({ chat, onBackClick }) => {
           <img src={lion} alt="Profile picture" />
         </div>
         <div className="profile_name">
-          {chat && <b>{chat.users.receiver.name}</b>}
+          {chat && <b>{chat.users.receiver.username}</b>}
           <div>
-            <small>{chat.users.receiver.number}</small>
+            <small>{chat.users.receiver.phoneNumber}</small>
           </div>
         </div>
       </div>

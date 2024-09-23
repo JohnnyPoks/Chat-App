@@ -1,20 +1,14 @@
 class Client {
   constructor() {
-    this.data = {};
+    // this.data = {};
     this.socket = new WebSocket("ws://localhost:8080");
     this.socket.onopen = () => {
       console.log("WebSocket connection established");
     };
-    // this.socket.onmessage = this.handleMessage.bind(this);
     this.socket.onclose = () => {
       console.log("WebSocket connection closed");
     };
   }
-
-  // handleMessage(event) {
-  //   this.data = JSON.parse(event.data);
-  //   console.log("Received message from Server:", this.data);
-  // }
 
   createAccount(name, number) {
     const data = {
@@ -24,38 +18,108 @@ class Client {
         phoneNumber: number,
       },
     };
-    this.socket.send(JSON.stringify(data));
-
-    this.socket.addEventListener("message", (event) => {
-      this.data = JSON.parse(event.data);
-      console.log("Message from server about Created Account: ", this.data);
-      return this.data;
+    return new Promise((resolve, reject) => {
+      this.socket.send(JSON.stringify(data));
+      this.socket.addEventListener("message", (event) => {
+        this.data = JSON.parse(event.data);
+        if (
+          this.data &&
+          this.data.success &&
+          this.data.type === "userCreated"
+        ) {
+          resolve(this.data);
+        } else {
+          reject(this.data);
+          console.log(this.data);
+        }
+      });
     });
-    console.log(this.date);
-
-    return this.data;
-    // return () => {
-    //   this.socket.close();
-    // };
   }
 
   loginUser(number) {
-    this.socket.addEventListener("open", (event) => {
-      this.socket.send("loginUser", `${number}`);
-      console.log(event);
+    return new Promise((resolve, reject) => {
+      this.socket.send(JSON.stringify({ type: "loginUser", number }));
+      this.socket.addEventListener("message", (event) => {
+        this.data = JSON.parse(event.data);
+        if (
+          this.data &&
+          this.data.success &&
+          this.data.type === "userLoggedIn"
+        ) {
+          resolve(this.data);
+        } else {
+          reject(this.data);
+          console.log(this.data);
+        }
+      });
     });
-    this.socket.addEventListener("message", (event) => {
-      console.log("Message from server about User Logging in : ", event.data);
-    });
-    return () => {
-      this.socket.close();
-    };
   }
 
-  // sendMessage(message) {
-  //   const messageData = JSON.stringify(message);
-  //   this.socket.send(messageData);
-  // }
+  createChat(senderNumber, receiverNumber) {
+    const data = {
+      type: "createChat",
+      newChat: {
+        senderNumber,
+        receiverNumber,
+      },
+    };
+    return new Promise((resolve, reject) => {
+      this.socket.send(JSON.stringify(data));
+      this.socket.addEventListener("message", (event) => {
+        this.data = JSON.parse(event.data);
+        if (
+          this.data &&
+          this.data.success &&
+          this.data.type === "chatCreated"
+        ) {
+          resolve(this.data);
+        } else {
+          reject(this.data);
+          console.log(this.data);
+        }
+      });
+    });
+  }
+
+  getAllChats(senderId) {
+    return new Promise((resolve, reject) => {
+      this.socket.send(JSON.stringify({ type: "getChats", senderId }));
+
+      this.socket.addEventListener("message", (event) => {
+        this.data = JSON.parse(event.data);
+        if (
+          this.data &&
+          this.data.success &&
+          this.data.type === "chatsReceived"
+        ) {
+          resolve(this.data);
+        } else {
+          reject(this.data);
+          console.log(this.data);
+        }
+      });
+    });
+  }
+
+  storeMessage(message) {
+    return new Promise((resolve, reject) => {
+      this.socket.send(JSON.stringify({ type: "newMessage", message }));
+
+      this.socket.addEventListener("message", (event) => {
+        this.data = JSON.parse(event.data);
+        if (
+          this.data &&
+          this.data.success &&
+          this.data.type === "storedMessage"
+        ) {
+          resolve(this.data);
+        } else {
+          reject(this.data);
+          console.log(this.data);
+        }
+      });
+    });
+  }
 
   closeConnection() {
     this.socket.close();

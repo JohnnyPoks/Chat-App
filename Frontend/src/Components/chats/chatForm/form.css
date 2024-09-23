@@ -90,3 +90,16 @@ input {
   color: var(--text-color);
   background-color: red;
 }
+
+.error-message {
+  align-self: center;
+  color: red;
+  font-size: 0.8rem;
+  background-color: #fdd;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  z-index: 100;
+}

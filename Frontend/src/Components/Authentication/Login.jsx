@@ -1,13 +1,28 @@
 import "./auth.css";
+import Client from "../../client/client";
 import { useState } from "react";
 
 const LoginPage = ({ onLogin, onClose }) => {
-  const [number, setNumber] = useState("");
+  const login = new Client();
+  const [number, setNumber] = useState(() => {
+    return localStorage.getItem("number") || "";
+  });
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin({ number });
-    console.log(number);
+    try {
+      const User = await login.loginUser(number);
+      const { id, username, phoneNumber } = User.user;
+      localStorage.clear();
+      localStorage.setItem("userId", id);
+      localStorage.setItem("name", username);
+      localStorage.setItem("number", phoneNumber);
+      console.log(localStorage);
+      onLogin();
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -33,9 +48,16 @@ const LoginPage = ({ onLogin, onClose }) => {
             Number
           </label>
         </div>
-        <div>
-          <small>Enter your phone number to login</small>
-        </div>
+        {error ? (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        ) : (
+          <div>
+            <small>Enter your phone number to login</small>
+          </div>
+        )}
+
         <button type="submit">Login</button>
         <button type="button" onClick={onClose}>
           Don&apos;t have an account? <span>SignUP</span>

@@ -1,8 +1,7 @@
 import "./chatList.css";
-import Chats from "./sample";
 import lion from "../../../assets/lion.jpg";
 
-const ChatList = ({ onChatClick }) => {
+const ChatList = ({ Chats, onChatClick }) => {
   return (
     <div className="chats">
       {Chats.map((chat) => (
@@ -13,22 +12,24 @@ const ChatList = ({ onChatClick }) => {
           <div className="details">
             <div className="top-details">
               <div>
-                <h5>{chat.users.receiver.name}</h5>
+                <h5>{chat.users.receiver.username}</h5>
               </div>
               {chat.messages.length > 0 && (
                 <div className={chat.unread ? "color" : "color read"}>
-                  {chat.messages[chat.messages.length - 1].time}
+                  {chat.messages[chat.messages.length - 1].timeSent}
                 </div>
               )}
             </div>
             <div className="bottom-details">
-              <div>
-                {chat.messages.length > 0 && (
+              {chat.messages.length > 0 && (
+                <div>
+                  <span className="material-symbols-outlined">done_all</span>
                   <small>
-                    {chat.messages[chat.messages.length - 1].message}
+                    {chat.messages[chat.messages.length - 1].content}
                   </small>
-                )}
-              </div>
+                </div>
+              )}
+
               {chat.unread && (
                 <div className={chat.unread ? "color" : "color read"}>
                   {chat.messages.length}

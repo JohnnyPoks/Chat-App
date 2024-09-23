@@ -1,8 +1,11 @@
 import "./input.css";
 import { useState, useRef, useEffect } from "react";
 import EmojiPicker from "emoji-picker-react";
+import Client from "../../../client/client";
 
 const MessageInput = ({ chat, onSendMessage }) => {
+  const sendMessage = new Client();
+
   const textareaRef = useRef(null);
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState(false);
@@ -21,17 +24,26 @@ const MessageInput = ({ chat, onSendMessage }) => {
     setText((prev) => prev + e.emoji);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (text.trim() !== "") {
-      const now = new Date();
-      const time = now.getHours() + ":" + now.getMinutes();
       // send message
-      const message = {
-        time: time,
-        message: text,
-        source: "sender",
-      };
-      onSendMessage(message);
+      try {
+        const now = new Date();
+        const time = now.getHours() + ":" + now.getMinutes();
+        const newMessage = {
+          content: text,
+          timeSent: time,
+          chat_id: chat.id,
+          senderId: parseInt(localStorage.getItem("userId")),
+          receiverId: chat.users.receiver.id,
+        };
+
+        const sentMessage = await sendMessage.storeMessage(newMessage);
+
+        onSendMessage(sentMessage.NewMessage);
+      } catch (error) {
+        console.error(error);
+      }
       setText("");
     } else {
       alert("Error!!! no message text entered");

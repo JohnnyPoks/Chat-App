@@ -3,25 +3,44 @@ import MessageNavbar from "./messageNavbar/Navbar";
 import MessageList from "./messageList/List";
 import MessageInput from "./messageInput/Input";
 import { useEffect, useState } from "react";
+import Client from "../../client/client";
 
-const Message = ({ chat, onBackClick }) => {
+const Message = ({ chat, onBackClick, updateChat }) => {
+  const checkMessage = new Client();
   const [chatMessages, setChatMessages] = useState(chat.messages);
 
   useEffect(() => {
     setChatMessages([...chat.messages]);
   }, [chat]);
 
-  const handleSendMessage = (message) => {
-    const now = new Date();
-    const time = now.getHours() + ":" + now.getMinutes();
+  useEffect(() => {
+    const checkIncomingMessages = (event) => {
+      const receivedMessage = JSON.parse(event.data);
+      if (
+        receivedMessage.destination_user_id ===
+        parseInt(localStorage.getItem("userId"))
+      ) {
+        console.log("You are the receiver");
 
-    const reply = {
-      message: "This is an automatic reply for testing purpose only 🙂",
-      time: time,
-      source: "receiver",
+        setChatMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        updateChat({ ...chat, messages: [...chat.messages, receivedMessage] });
+        console.log("Newly updated Chat", chat);
+      }
+      console.log("The Received Message", receivedMessage);
     };
-    setChatMessages([...chat.messages, message, reply]);
-    chat.messages = [...chat.messages, message];
+
+    checkMessage.socket.addEventListener("message", checkIncomingMessages);
+
+    return () => {
+      checkMessage.socket.removeEventListener("message", checkIncomingMessages);
+    };
+  }, [checkMessage.socket, chat, updateChat]);
+
+  const handleSendMessage = (message) => {
+    setChatMessages((prevMessages) => [...prevMessages, message]);
+    chat.messages.push(message);
+    updateChat(chat);
+    console.log("The chat Messages", chat.messages);
   };
 
   return (

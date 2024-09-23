@@ -1,14 +1,26 @@
 import "./form.css";
+import Client from "../../../client/client";
 import { useState } from "react";
 
 const NewChatForm = ({ onClose, onCreate }) => {
+  const newChat = new Client();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onCreate({ name, number });
-    onClose();
+    const senderNumber = localStorage.getItem("number");
+
+    try {
+      const Chat = await newChat.createChat(senderNumber, number);
+      console.log(Chat);
+      onCreate(Chat.newChat);
+      onClose();
+    } catch (error) {
+      setError(error.message);
+      console.error(error);
+    }
   };
 
   return (
@@ -39,6 +51,11 @@ const NewChatForm = ({ onClose, onCreate }) => {
             Number
           </label>
         </div>
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
         <button type="submit">Create Chat</button>
         <button type="button" onClick={onClose}>
           Cancel

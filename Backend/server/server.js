@@ -26,7 +26,7 @@ wss.on("connection", (ws) => {
             ws.send(
               JSON.stringify({
                 type: "userCreated",
-                message: "New User created successfully",
+                success: true,
                 newUser,
               })
             );
@@ -42,7 +42,7 @@ wss.on("connection", (ws) => {
             ws.send(
               JSON.stringify({
                 type: "userLoggedIn",
-                message: "User logged in successfully",
+                success: true,
                 user,
               })
             );
@@ -51,18 +51,59 @@ wss.on("connection", (ws) => {
         }
         break;
 
-      // case "sendMessage":
-      //   try {
-      //     const message = await createMessage(
-      //       parsedData.content,
-      //       parsedData.senderId,
-      //       parsedData.receiverId
-      //     );
-      //     ws.send(JSON.stringify({ type: "messageSent", message }));
-      //   } catch (error) {
-      //     ws.send(JSON.stringify({ type: "error", message: error.message }));
-      //   }
-      //   break;
+      case "createChat":
+        try {
+          const newChat = await createChat(parsedData.newChat);
+          newChat &&
+            ws.send(
+              JSON.stringify({
+                type: "chatCreated",
+                success: true,
+                newChat,
+              })
+            );
+        } catch (error) {
+          ws.send(JSON.stringify({ type: "error", message: error.message }));
+        }
+        break;
+
+      case "getChats":
+        try {
+          const chats = await getAllChats(parsedData.senderId);
+          chats &&
+            ws.send(
+              JSON.stringify({
+                type: "chatsReceived",
+                success: true,
+                chats,
+              })
+            );
+        } catch (error) {
+          ws.send(JSON.stringify({ type: "error", message: error.message }));
+        }
+        break;
+
+      case "newMessage":
+        try {
+          const NewMessage = await storeMessage(parsedData.message);
+          NewMessage &&
+            ws.send(
+              JSON.stringify({
+                type: "storedMessage",
+                success: true,
+                NewMessage,
+              })
+            );
+          wss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+              client.send(JSON.stringify(NewMessage));
+            }
+            console.log("Message Broadcasted Successfully");
+          });
+        } catch (error) {
+          ws.send(JSON.stringify({ type: "error", message: error.message }));
+        }
+        break;
 
       default:
         ws.send(JSON.stringify({ type: "error", message: "Unknown command" }));

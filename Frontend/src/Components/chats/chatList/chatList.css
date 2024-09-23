@@ -49,6 +49,15 @@
   justify-content: space-between;
 }
 
+.bottom-details > div{
+  display: flex;
+  align-items: center;
+  span {
+    font-size: smaller;
+    padding: 0px 5px;
+  }
+}
+
 .chat .details .bottom-details small {
   display: block;
   white-space: nowrap;
